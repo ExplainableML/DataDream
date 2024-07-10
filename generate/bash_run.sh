@@ -5,7 +5,7 @@ SPLIT_IDX="$2"
 
 
 BS=10
-NIPP=20
+NIPC=20
 SD="sd2.1"
 GS=2.0
 
@@ -26,7 +26,7 @@ FEWSHOT_SEED="seed0"
 
 CUDA_VISIBLE_DEVICES=$GPU python generate.py \
 --bs=$BS \
---n_img_per_pair=$NIPP \
+--n_img_per_class=$NIPC \
 --sd_version=$SD \
 --mode=$MODE \
 --guidance_scale=$GS \

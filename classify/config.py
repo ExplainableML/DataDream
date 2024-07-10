@@ -313,7 +313,7 @@ def get_args():
     # wandb args
     parser.add_argument('--log', type=str, default='tensorboard', help='How to log')
     parser.add_argument('--wandb_entity', type=str, default='regaz', help='Wandb entity')
-    parser.add_argument('--wandb_project', type=str, default='trex', help='Wandb project name')
+    parser.add_argument('--wandb_project', type=str, default='datadream', help='Wandb project name')
     parser.add_argument('--wandb_group', type=str2none, default=None, help='Name of the group for wandb runs')
     parser.add_argument('--wandb_key', default='<your_api_key_here>', type=str, help='API key for W&B.')
 

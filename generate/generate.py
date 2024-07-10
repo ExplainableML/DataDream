@@ -170,7 +170,7 @@ class GenerateImage:
         mode,
         guidance_scale,
         num_inference_steps,
-        n_img_per_pair,
+        n_img_per_class,
         save_dir,
         count_start,
         bs,
@@ -183,7 +183,7 @@ class GenerateImage:
         self.mode = mode
         self.guidance_scale = guidance_scale
         self.num_inference_steps = num_inference_steps
-        self.n_img_per_pair = n_img_per_pair
+        self.n_img_per_class = n_img_per_class
         self.save_dir = save_dir
         self.count_start = count_start
         self.bs = bs
@@ -262,13 +262,13 @@ class GenerateImage:
     @decorator_batch_prompts
     def name_template_method(self, classname):
         templates = TEMPLATES_SMALL[: self.n_template]
-        n_repeat = self.n_img_per_pair // len(templates) + 1
+        n_repeat = self.n_img_per_class // len(templates) + 1
         prompts = [
             template.format(self.dataset_name, classname)
             for _ in range(n_repeat)
             for template in templates
         ]
-        prompts = prompts[: self.n_img_per_pair]
+        prompts = prompts[: self.n_img_per_class]
         return prompts
 
 
@@ -286,7 +286,7 @@ def main(
     mode="datadream",  # zeroshot, datadream
     guidance_scale=2.0,
     num_inference_steps=50,
-    n_img_per_pair=100,
+    n_img_per_class=100,
     count_start=0,
     n_set_split=5,
     split_idx=0,
@@ -370,7 +370,7 @@ def main(
         mode=mode,
         guidance_scale=guidance_scale,
         num_inference_steps=num_inference_steps,
-        n_img_per_pair=n_img_per_pair,
+        n_img_per_class=n_img_per_class,
         save_dir=save_dir,
         count_start=count_start,
         bs=bs,
@@ -379,97 +379,6 @@ def main(
         dataset=dataset,
     )
 
-#     # class names
-#     if dataset == "imagenet_100":
-#         subset_labels = labels_from_names(data_dir, SUBSET_NAMES[dataset])
-#         fpath = ospj(data_dir, "imagenet_class_index_full_classname.json")
-#         with open(fpath, "r") as f:
-#             dct = json.load(f)
-#             label_to_name = {int(k): v[1] for k, v in dct.items()}
-#     elif dataset == "imagenet":
-#         subset_labels = [i for i in range(len(SUBSET_NAMES[dataset]))]
-#         label_to_name = {
-#             int(i): SUBSET_NAMES[dataset][i]
-#             for i in range(len(SUBSET_NAMES[dataset]))
-#         }
-#     else:
-#         if not os.path.exists(data_dir):
-#             os.mkdir(data_dir)
-#         subset_labels = [i for i in range(len(SUBSET_NAMES[dataset]))]
-#         fpath = os.path.join(data_dir, dataset + "_label_to_name.json")
-#         if os.path.exists(fpath):
-#             with open(fpath, "r") as f:
-#                 label_to_name = json.load(f)
-#             label_to_name = {int(i): label_to_name[i] for i in label_to_name.keys()}
-#         else:
-#             name_to_label_dsets = ["pets", "food101", "fgvc_aircraft", "cars", "dtd"]
-#             name_in_order_dsets = ["stl10", "eurosat", "sun397", "caltech101"]
-#             if dataset in name_to_label_dsets:
-#                 real_test_data_dir = ospj(data_dir)
-#                 path_test = os.path.join(real_test_data_dir, "train")
-#                 if dataset == "pets":
-#                     test_dataset = tv.datasets.OxfordIIITPet(
-#                         root=path_test,
-#                         split="test",
-#                         target_types="category",
-#                         download=True,
-#                         transform=None,
-#                     )
-#                 elif dataset == "food101":
-#                     test_dataset = tv.datasets.Food101(
-#                         root=path_test,
-#                         split="test",
-#                         transform=None,
-#                         download=True,
-#                     )
-#                 elif dataset == "fgvc_aircraft":
-#                     test_dataset = tv.datasets.FGVCAircraft(
-#                         root=path_test,
-#                         split="test",
-#                         annotation_level="variant",
-#                         transform=None,
-#                         download=True,
-#                     )
-#                 elif dataset == "cars":
-#                     test_dataset = tv.datasets.StanfordCars(
-#                         root=path_test,
-#                         split="test",
-#                         transform=None,
-#                         download=False,
-#                     )
-#                 elif dataset == "dtd":
-#                     test_dataset = tv.datasets.DTD(
-#                         root=path_test,
-#                         split="test",
-#                         transform=None,
-#                         download=False,
-#                     )
-#                 name_to_label = test_dataset.class_to_idx
-#                 label_to_name = {int(name_to_label[k]): k for k in name_to_label.keys()}
-#                 with open(fpath, "w") as f:
-#                     json.dump(label_to_name, f)
-#             elif dataset in name_in_order_dsets:
-#                 label_to_name = {
-#                     int(i): SUBSET_NAMES[dataset][i]
-#                     for i in range(len(SUBSET_NAMES[dataset]))
-#                 }
-#                 with open(fpath, "w") as f:
-#                     json.dump(label_to_name, f)
-#             elif dataset == 'flowers102':
-#                 # This file is already on the cluster, so ask if you need to know where to find a copy.
-#                 # Otherwise it can be downloaded from
-#                 # https://www.kaggle.com/datasets/yousefmohamed20/oxford-102-flower-dataset/data
-#                 metadata_file = os.path.join(data_dir, "train", "cat_to_name.json")
-#                 f = open(metadata_file, )
-#                 cls_name_dict = json.load(f)
-#                 label_to_name = dict(sorted([(int(x) - 1, cls_name_dict[x]) for x in cls_name_dict.keys()]))
-#                 with open(fpath, "w") as f:
-#                     json.dump(label_to_name, f)
-#             else:
-#                 raise ValueError("Please specify a valid dataset.")
-
-#     subset_names = [label_to_name[_l] for _l in subset_labels]
-#     iters = list(zip(subset_labels, SUBSET_NAMES[dataset]))
     iters = SUBSET_NAMES[dataset]
 
     # parallel computing
