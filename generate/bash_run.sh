@@ -14,7 +14,7 @@ N_TEMPLATE=1
 
 MODE="datadream"
 DD_LR=1e-4
-DD_EP=20
+DD_EP=200
 
 DATASET="eurosat"
 IS_DATASETWISE=False

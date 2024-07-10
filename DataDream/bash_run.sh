@@ -10,7 +10,7 @@ DATASET="eurosat"
 N_CLS=10
 FEWSHOT_SEED="seed0"
 N_SHOT=16
-NUM_TRAIN_EPOCH=20
+NUM_TRAIN_EPOCH=200
 
 
 ### ------------------

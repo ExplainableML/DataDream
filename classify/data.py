@@ -222,7 +222,7 @@ class DatasetSynthImage(Dataset):
         image = self.transform(image)
         is_real = "real_train" in image_path
 
-        elif self.is_pooled_fewshot:
+        if self.is_pooled_fewshot:
             return image, image_label, is_real
         else:
             return image, image_label
