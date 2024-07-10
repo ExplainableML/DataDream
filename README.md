@@ -46,7 +46,7 @@ For instance, the ImageNet 16-shot data should be stored as follows:
 
 ## Step
 
-1. Install the necessary dependencies in `environment.yml`.
+1. Install the necessary dependencies in `requirements.txt`.
 2. **DataDream**: Follow the instructions in the `DataDream` folder.
 3. **Dataset Generation**: Follow the instructions in the `generate` folder.
 4. **Train Classifier**: Follow the instructions in the `classify` folder.
