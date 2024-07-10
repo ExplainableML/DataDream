@@ -1,0 +1,10 @@
+
+DataDream/__pycache__
+DataDream/outputs*
+
+generate/__pycache__
+
+classify/__pycache__
+classify/models/__pycache__
+classify/outputs*
+classify/wandb

@@ -1,0 +1,5 @@
+fewshot_data_dir: 
+    eurosat: PATH_TO_FEWSHOT_DATA_DIR
+
+model_dir: 
+    sd2.1: PATH_TO_SD2.1_DIR

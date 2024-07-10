@@ -1,0 +1,15 @@
+wandb_key: WANDB_KEY
+metadata_dir: metadata/imagenet
+clip_download_dir: CLIP_CHECKPOINT_PATH
+synth_train_data_dir: GLOBAL_PATH_TO_SYNTH_DATA_DIR
+
+real_train_data_dir:
+    eurosat: PATH_TO_REAL_TRAIN_DATA_DIR
+
+real_test_data_dir:
+    eurosat: PATH_TO_REAL_TEST_DATA_DIR
+
+real_train_fewshot_data_dir: 
+    eurosat: PATH_TO_FEWSHOT_DATA_DIR
+
+
