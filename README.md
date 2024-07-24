@@ -53,13 +53,10 @@ For instance, the ImageNet 16-shot data should be stored as follows:
 
 ### Citation
 ```bibtex
-@misc{kim2024datadreamfewshotguideddataset,
-      title={DataDream: Few-shot Guided Dataset Generation}, 
-      author={Jae Myung Kim and Jessica Bader and Stephan Alaniz and Cordelia Schmid and Zeynep Akata},
-      year={2024},
-      eprint={2407.10910},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2407.10910}, 
+@article{kim2024datadream,
+  title={DataDream: Few-shot Guided Dataset Generation},
+  author={Kim, Jae Myung and Bader, Jessica and Alaniz, Stephan and Schmid, Cordelia and Akata, Zeynep},
+  journal={arXiv preprint arXiv:2407.10910},
+  year={2024}
 }
 ```
